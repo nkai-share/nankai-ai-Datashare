@@ -6,5 +6,5 @@
 ## 3、更新内容
 深度学习、人工智能技术、习概、现代控制论、信号与系统、运筹学、运动控制科目相关期末复习资料
 ## 4、目录
-> [人工智能技术](URL "[title](https://github.com/nkai-share/nankai-ai-Datashare/tree/main/大三上/人工智能技术)")
+> [人工智能技术](https://github.com/nkai-share/nankai-ai-Datashare/tree/main/大三上/人工智能技术)
 >
