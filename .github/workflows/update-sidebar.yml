@@ -1,11 +1,16 @@
 name: Auto Update Sidebar
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main  
     paths-ignore:
       - '_sidebar.md' 
+
+concurrency:
+  group: update-sidebar-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
