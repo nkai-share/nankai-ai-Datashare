@@ -1,0 +1,52 @@
+name: Validate Resource Index
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - '大一上/**'
+      - '大一下/**'
+      - '大二上/**'
+      - '大二下/**'
+      - '大三上/**'
+      - '大三下/**'
+      - 'scripts/**'
+      - 'site/**'
+      - '.github/workflows/validate-resources.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Generate resource index
+        run: python scripts/generate_resource_index.py
+
+      - name: Validate resource metadata
+        run: python scripts/validate_resource_index.py
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Build website
+        working-directory: site
+        run: npm run build

@@ -1,0 +1,15 @@
+---
+import type { Resource } from '../types';
+const { resources } = Astro.props as { resources: Resource[] };
+---
+<div class="resource-table" role="table" aria-label="资料列表">
+  {resources.map((resource) => <a role="row" href={resource.rawUrl} target="_blank" rel="noreferrer"><span role="cell">{resource.name}</span><span role="cell">{resource.course}</span><span role="cell">{resource.extension.toUpperCase()}</span><span role="cell">{resource.sizeText}</span></a>)}
+</div>
+<style>
+  .resource-table { overflow: hidden; border: 1px solid var(--nk-border); border-radius: var(--nk-radius); }
+  .resource-table a { display: grid; grid-template-columns: minmax(0, 2fr) minmax(130px, 1fr) 70px 90px; gap: 14px; padding: 13px 16px; border-bottom: 1px solid var(--nk-border); text-decoration: none; font-size: .85rem; }
+  .resource-table a:last-child { border-bottom: 0; }
+  .resource-table a:hover { background: color-mix(in srgb, var(--nk-primary) 6%, transparent); }
+  .resource-table span:first-child { overflow-wrap: anywhere; font-weight: 700; }
+  @media (max-width: 640px) { .resource-table a { grid-template-columns: 1fr auto; } .resource-table span:nth-child(2), .resource-table span:nth-child(4) { display: none; } }
+</style>

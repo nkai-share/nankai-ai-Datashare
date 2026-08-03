@@ -1,0 +1,296 @@
+---
+import FilterPanel from './FilterPanel.astro';
+import EmptyState from './EmptyState.astro';
+import PreviewDialog from './PreviewDialog.astro';
+import type { Resource } from '../types';
+
+const {
+  resources,
+  fixedSemester = '',
+  fixedCourse = '',
+} = Astro.props as { resources: Resource[]; fixedSemester?: string; fixedCourse?: string };
+const serialized = JSON.stringify(resources).replace(/</g, '\\u003c');
+---
+<div class="explorer" data-resource-explorer data-fixed-semester={fixedSemester} data-fixed-course={fixedCourse}>
+  <div class="mobile-filter-bar"><button class="nk-button" type="button" data-mobile-filters>筛选条件</button></div>
+  <div class="explorer-grid">
+    <div class="filter-column"><FilterPanel resources={resources} fixedSemester={fixedSemester} fixedCourse={fixedCourse} /></div>
+    <section class="results" aria-live="polite">
+      <div class="search-row nk-card">
+        <label class="search-box"><span aria-hidden="true">⌕</span><span class="nk-sr-only">搜索资料</span><input type="search" data-resource-query placeholder="搜索文件名、课程或分类……" autocomplete="off" /></label>
+        <div class="view-toggle" aria-label="视图模式"><button type="button" data-view="grid" class="is-active" title="卡片视图">▦</button><button type="button" data-view="list" title="列表视图">☷</button></div>
+      </div>
+      <div class="result-summary"><p>找到 <strong data-result-count>{resources.length}</strong> 份资料</p><div data-active-filters></div></div>
+      <div class="resource-results" data-resource-results></div>
+      <EmptyState />
+      <div class="load-more-wrap"><button class="nk-button" type="button" data-load-more hidden>加载更多</button></div>
+      <noscript><p class="noscript">资料检索需要启用 JavaScript。你仍可在 GitHub 仓库中浏览所有文件。</p></noscript>
+    </section>
+  </div>
+  <script is:inline type="application/json" data-resource-json set:html={serialized}></script>
+  <PreviewDialog />
+</div>
+
+<script>
+  import Fuse from 'fuse.js';
+  import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
+  import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+  import type { Resource } from '../types';
+
+  GlobalWorkerOptions.workerSrc = pdfWorker;
+
+  const root = document.querySelector<HTMLElement>('[data-resource-explorer]');
+  if (root) {
+    const json = root.querySelector<HTMLScriptElement>('[data-resource-json]')?.textContent || '[]';
+    const resources = JSON.parse(json) as Resource[];
+    const resultsNode = root.querySelector<HTMLElement>('[data-resource-results]')!;
+    const countNode = root.querySelector<HTMLElement>('[data-result-count]')!;
+    const emptyNode = root.querySelector<HTMLElement>('[data-empty-state]')!;
+    const loadMore = root.querySelector<HTMLButtonElement>('[data-load-more]')!;
+    const queryInput = root.querySelector<HTMLInputElement>('[data-resource-query]')!;
+    const activeFilters = root.querySelector<HTMLElement>('[data-active-filters]')!;
+    const fixedSemester = root.dataset.fixedSemester || '';
+    const fixedCourse = root.dataset.fixedCourse || '';
+    const pageSize = 48;
+    let visibleLimit = pageSize;
+    let currentView = localStorage.getItem('nk-resource-view') || 'grid';
+    let currentResults: Resource[] = [];
+
+    const fuse = new Fuse(resources, {
+      threshold: 0.34,
+      ignoreLocation: true,
+      keys: [
+        { name: 'name', weight: 5 }, { name: 'course', weight: 4 },
+        { name: 'category', weight: 3 }, { name: 'rawCategory', weight: 2.5 },
+        { name: 'semester', weight: 2 }, { name: 'extension', weight: 1 },
+      ],
+    });
+
+    const state = { q: '', semester: fixedSemester, course: fixedCourse, type: '', category: '', sort: 'latest' };
+    const params = new URLSearchParams(location.search);
+    for (const key of Object.keys(state) as Array<keyof typeof state>) {
+      if (params.has(key) && !(key === 'semester' && fixedSemester) && !(key === 'course' && fixedCourse)) state[key] = params.get(key) || '';
+    }
+
+    function escapeHtml(value: string) {
+      return value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]!);
+    }
+    function iconClass(extension: string) {
+      if (extension === 'pdf') return 'red';
+      if (['doc','docx'].includes(extension)) return 'blue';
+      if (['ppt','pptx'].includes(extension)) return 'orange';
+      if (['xls','xlsx'].includes(extension)) return 'green';
+      if (['png','jpg','jpeg','webp'].includes(extension)) return 'cyan';
+      return 'purple';
+    }
+    function iconLabel(extension: string) {
+      const labels: Record<string,string> = { docx: 'DOC', pptx: 'PPT', xlsx: 'XLS', jpeg: 'IMG', jpg: 'IMG', png: 'IMG', webp: 'IMG' };
+      return labels[extension] || extension.slice(0, 4).toUpperCase();
+    }
+    function formatDate(value: string) {
+      try { return new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(value)); }
+      catch { return '未知'; }
+    }
+    function cardTemplate(item: Resource) {
+      const previewLabel = ['pdf','image','text','office'].includes(item.previewType) ? '在线预览' : '打开资料';
+      return `<article class="resource-item nk-card">
+        <div class="item-heading"><span class="item-icon ${iconClass(item.extension)}">${escapeHtml(iconLabel(item.extension))}</span><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.course)} · ${escapeHtml(item.semester)}</p></div></div>
+        <div class="item-tags"><span>${escapeHtml(item.category)}</span><span>${escapeHtml(item.extension.toUpperCase())}</span></div>
+        <div class="item-meta"><span>${escapeHtml(item.sizeText)}</span><span>${escapeHtml(formatDate(item.updatedAt))}</span></div>
+        <div class="item-actions"><button class="nk-button nk-button--primary" type="button" data-preview-id="${item.id}">${previewLabel}</button><a class="nk-button" href="${item.githubUrl}" target="_blank" rel="noreferrer">GitHub</a></div>
+      </article>`;
+    }
+    function listTemplate(item: Resource) {
+      return `<article class="resource-row nk-card"><span class="item-icon ${iconClass(item.extension)}">${escapeHtml(iconLabel(item.extension))}</span><div class="row-main"><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.semester)} · ${escapeHtml(item.course)} · ${escapeHtml(item.category)}</p></div><span class="row-size">${escapeHtml(item.sizeText)}</span><button class="nk-button" type="button" data-preview-id="${item.id}">打开</button></article>`;
+    }
+    function syncControls() {
+      queryInput.value = state.q;
+      root!.querySelectorAll<HTMLSelectElement>('[data-filter]').forEach((select) => {
+        const key = select.dataset.filter as keyof typeof state;
+        select.value = state[key] || '';
+      });
+      root!.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((button) => button.classList.toggle('is-active', button.dataset.view === currentView));
+    }
+    function syncUrl() {
+      const next = new URLSearchParams();
+      for (const [key, value] of Object.entries(state)) {
+        if (value && value !== 'latest' && !(key === 'semester' && fixedSemester) && !(key === 'course' && fixedCourse)) next.set(key, value);
+      }
+      history.replaceState(null, '', `${location.pathname}${next.size ? `?${next}` : ''}`);
+    }
+    function filterResources() {
+      let list = state.q ? fuse.search(state.q).map((result) => result.item) : [...resources];
+      list = list.filter((item) => (!state.semester || item.semester === state.semester) && (!state.course || item.course === state.course) && (!state.type || item.extension === state.type) && (!state.category || item.category === state.category));
+      if (state.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
+      else if (state.sort === 'size-desc') list.sort((a, b) => b.size - a.size);
+      else list.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+      return list;
+    }
+    function render() {
+      currentResults = filterResources();
+      const visible = currentResults.slice(0, visibleLimit);
+      resultsNode.classList.toggle('is-list', currentView === 'list');
+      resultsNode.innerHTML = visible.map(currentView === 'list' ? listTemplate : cardTemplate).join('');
+      countNode.textContent = String(currentResults.length);
+      emptyNode.hidden = currentResults.length > 0;
+      loadMore.hidden = visible.length >= currentResults.length;
+      const chips = Object.entries(state).filter(([key, value]) => value && value !== 'latest' && key !== 'q').map(([, value]) => `<span>${escapeHtml(value)}</span>`);
+      activeFilters.innerHTML = chips.join('');
+      syncUrl();
+    }
+    function reset() {
+      Object.assign(state, { q: '', semester: fixedSemester, course: fixedCourse, type: '', category: '', sort: 'latest' });
+      visibleLimit = pageSize;
+      syncControls(); render();
+    }
+
+    queryInput.addEventListener('input', () => { state.q = queryInput.value.trim(); visibleLimit = pageSize; render(); });
+    root.querySelectorAll<HTMLSelectElement>('[data-filter]').forEach((select) => select.addEventListener('change', () => { const key = select.dataset.filter as keyof typeof state; state[key] = select.value; visibleLimit = pageSize; render(); }));
+    root.querySelectorAll<HTMLButtonElement>('[data-clear-filters]').forEach((button) => button.addEventListener('click', reset));
+    root.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((button) => button.addEventListener('click', () => { currentView = button.dataset.view || 'grid'; localStorage.setItem('nk-resource-view', currentView); syncControls(); render(); }));
+    loadMore.addEventListener('click', () => { visibleLimit += pageSize; render(); });
+    root.querySelector<HTMLButtonElement>('[data-mobile-filters]')?.addEventListener('click', () => root.querySelector('.filter-column')?.classList.toggle('is-open'));
+
+    const dialog = root.querySelector<HTMLDialogElement>('[data-preview-dialog]')!;
+    const previewBody = dialog.querySelector<HTMLElement>('[data-preview-body]')!;
+    const previewTitle = dialog.querySelector<HTMLElement>('[data-preview-title]')!;
+    const previewOpen = dialog.querySelector<HTMLAnchorElement>('[data-preview-open]')!;
+    dialog.querySelector<HTMLButtonElement>('[data-preview-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+
+    async function renderPdfPreview(url: string) {
+      const shell = document.createElement('div');
+      shell.className = 'pdf-preview';
+      const toolbar = document.createElement('div');
+      toolbar.className = 'pdf-toolbar';
+      const previous = document.createElement('button');
+      previous.type = 'button'; previous.textContent = '上一页';
+      const status = document.createElement('span');
+      status.textContent = '正在加载 PDF…';
+      const next = document.createElement('button');
+      next.type = 'button'; next.textContent = '下一页';
+      const zoomOut = document.createElement('button');
+      zoomOut.type = 'button'; zoomOut.textContent = '−'; zoomOut.title = '缩小';
+      const zoomIn = document.createElement('button');
+      zoomIn.type = 'button'; zoomIn.textContent = '+'; zoomIn.title = '放大';
+      toolbar.append(previous, status, next, zoomOut, zoomIn);
+
+      const stage = document.createElement('div');
+      stage.className = 'pdf-stage';
+      const canvas = document.createElement('canvas');
+      stage.append(canvas);
+      shell.append(toolbar, stage);
+      previewBody.append(shell);
+
+      try {
+        const pdf = await getDocument({ url }).promise;
+        let pageNumber = 1;
+        let zoom = 1;
+        let renderSequence = 0;
+
+        const renderPage = async () => {
+          const sequence = ++renderSequence;
+          previous.disabled = pageNumber <= 1;
+          next.disabled = pageNumber >= pdf.numPages;
+          status.textContent = `第 ${pageNumber} / ${pdf.numPages} 页 · ${Math.round(zoom * 100)}%`;
+          const page = await pdf.getPage(pageNumber);
+          if (sequence !== renderSequence) return;
+          const baseViewport = page.getViewport({ scale: 1 });
+          const availableWidth = Math.max(stage.clientWidth - 28, 280);
+          const fitScale = Math.min(availableWidth / baseViewport.width, 1.6);
+          const viewport = page.getViewport({ scale: fitScale * zoom });
+          const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+          const context = canvas.getContext('2d');
+          if (!context) throw new Error('Canvas is unavailable');
+          canvas.width = Math.floor(viewport.width * pixelRatio);
+          canvas.height = Math.floor(viewport.height * pixelRatio);
+          canvas.style.width = `${Math.floor(viewport.width)}px`;
+          canvas.style.height = `${Math.floor(viewport.height)}px`;
+          await page.render({
+            canvas,
+            canvasContext: context,
+            viewport,
+            transform: pixelRatio === 1 ? undefined : [pixelRatio, 0, 0, pixelRatio, 0, 0],
+          }).promise;
+        };
+
+        previous.addEventListener('click', () => { if (pageNumber > 1) { pageNumber -= 1; void renderPage(); } });
+        next.addEventListener('click', () => { if (pageNumber < pdf.numPages) { pageNumber += 1; void renderPage(); } });
+        zoomOut.addEventListener('click', () => { zoom = Math.max(.6, zoom - .2); void renderPage(); });
+        zoomIn.addEventListener('click', () => { zoom = Math.min(2.4, zoom + .2); void renderPage(); });
+        await renderPage();
+      } catch (error) {
+        console.error('PDF preview failed', error);
+        stage.replaceChildren();
+        const message = document.createElement('div');
+        message.className = 'preview-error';
+        message.innerHTML = '<strong>PDF 预览加载失败</strong><p>可能是网络、代理或文件访问限制。请使用下方“新标签打开”。</p>';
+        stage.append(message);
+        status.textContent = '无法加载';
+        previous.disabled = true; next.disabled = true; zoomOut.disabled = true; zoomIn.disabled = true;
+      }
+    }
+
+    resultsNode.addEventListener('click', async (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-preview-id]');
+      if (!button) return;
+      const item = resources.find((resource) => resource.id === button.dataset.previewId);
+      if (!item) return;
+      if (item.previewType === 'download' || item.previewType === 'archive' || item.previewType === 'media' || (matchMedia('(max-width: 680px)').matches && item.previewType === 'office')) { window.open(item.rawUrl, '_blank', 'noopener'); return; }
+      previewTitle.textContent = item.name;
+      previewOpen.href = item.rawUrl;
+      previewBody.replaceChildren();
+      dialog.showModal();
+      if (item.previewType === 'image') { const image = new Image(); image.src = item.rawUrl; image.alt = item.name; previewBody.append(image); }
+      else if (item.previewType === 'text') { const pre = document.createElement('pre'); pre.textContent = '正在加载文本…'; previewBody.append(pre); try { const response = await fetch(item.rawUrl); if (!response.ok) throw new Error(); pre.textContent = await response.text(); } catch { pre.textContent = '文本预览加载失败，请使用新标签打开。'; } }
+      else if (item.previewType === 'pdf') { await renderPdfPreview(item.rawUrl); }
+      else { const frame = document.createElement('iframe'); frame.title = item.name; frame.loading = 'lazy'; frame.src = `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(item.rawUrl)}`; previewBody.append(frame); }
+    });
+
+    syncControls();
+    render();
+    if (state.q) setTimeout(() => queryInput.focus(), 0);
+  }
+</script>
+
+<style>
+  .explorer, .explorer-grid { min-width: 0; }
+  .explorer-grid { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 22px; align-items: start; }
+  .results { min-width: 0; }
+  .mobile-filter-bar { display: none; margin-bottom: 12px; }
+  .search-row { display: flex; align-items: center; gap: 12px; padding: 9px; }
+  .search-box { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; padding: 0 10px; }
+  .search-box > span:first-child { color: var(--nk-primary-light); font-size: 1.45rem; }
+  .search-box input { width: 100%; min-width: 0; min-height: 44px; border: 0; outline: 0; color: var(--nk-text); background: transparent; }
+  .view-toggle { display: flex; gap: 4px; }
+  .view-toggle button { width: 38px; height: 38px; border: 0; border-radius: 10px; color: var(--nk-muted); background: transparent; cursor: pointer; }
+  .view-toggle button.is-active { color: white; background: var(--nk-primary); }
+  .result-summary { min-height: 55px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .result-summary p { margin: 0; color: var(--nk-muted); font-size: .86rem; }
+  .result-summary strong { color: var(--nk-text); }
+  .result-summary div { display: flex; justify-content: flex-end; gap: 6px; flex-wrap: wrap; }
+  .result-summary div :global(span) { padding: 4px 7px; border-radius: 7px; color: var(--nk-primary-light); background: color-mix(in srgb, var(--nk-primary) 9%, transparent); font-size: .7rem; }
+  .resource-results { min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+  .resource-results.is-list { grid-template-columns: 1fr; }
+  .resource-results :global(.resource-item) { display: flex; flex-direction: column; min-width: 0; min-height: 252px; padding: 18px; }
+  .resource-results :global(.item-heading) { display: flex; align-items: flex-start; gap: 12px; }
+  .resource-results :global(.item-heading > div) { min-width: 0; }
+  .resource-results :global(h3) { margin: 1px 0 5px; overflow-wrap: anywhere; font-size: .94rem; line-height: 1.45; }
+  .resource-results :global(p) { margin: 0; color: var(--nk-muted); font-size: .78rem; }
+  .resource-results :global(.item-icon) { display: grid; place-items: center; flex: 0 0 auto; width: 44px; height: 48px; border-radius: 11px; color: white; background: #765189; font-size: .65rem; font-weight: 900; }
+  .resource-results :global(.item-icon.red) { background: linear-gradient(145deg,#ef476f,#a81f41); } .resource-results :global(.item-icon.blue) { background: linear-gradient(145deg,#4f8ef7,#2450a7); } .resource-results :global(.item-icon.orange) { background: linear-gradient(145deg,#ff9f43,#b75b13); } .resource-results :global(.item-icon.green) { background: linear-gradient(145deg,#40c987,#14704a); } .resource-results :global(.item-icon.cyan) { background: linear-gradient(145deg,#22d3ee,#14778c); }
+  .resource-results :global(.item-tags) { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+  .resource-results :global(.item-tags span) { padding: 4px 7px; border-radius: 7px; color: var(--nk-muted); background: color-mix(in srgb, var(--nk-primary) 8%, transparent); font-size: .66rem; font-weight: 750; }
+  .resource-results :global(.item-meta) { display: flex; justify-content: space-between; gap: 8px; margin-top: auto; padding: 16px 0 12px; color: var(--nk-muted); font-size: .7rem; }
+  .resource-results :global(.item-actions) { display: flex; gap: 7px; }
+  .resource-results :global(.item-actions .nk-button) { flex: 1; min-height: 36px; padding-inline: 8px; font-size: .74rem; }
+  .resource-results :global(.resource-row) { display: grid; grid-template-columns: auto minmax(0, 1fr) 90px auto; align-items: center; gap: 14px; padding: 13px 16px; }
+  .resource-results :global(.row-main h3) { margin: 0 0 4px; }
+  .resource-results :global(.row-size) { color: var(--nk-muted); font-size: .75rem; }
+  .resource-results :global(.resource-row .nk-button) { min-height: 36px; font-size: .75rem; }
+  .load-more-wrap { display: flex; justify-content: center; padding-top: 24px; }
+  .noscript { padding: 20px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius); }
+  @media (max-width: 1100px) { .resource-results { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 860px) { .explorer-grid { grid-template-columns: minmax(0, 1fr); } .mobile-filter-bar { display: block; } .filter-column { display: none; } .filter-column.is-open { display: block; } }
+  @media (max-width: 600px) { .resource-results { grid-template-columns: minmax(0, 1fr); } .resource-results :global(.resource-item) { width: 100%; overflow: hidden; } .resource-results :global(.item-actions) { flex-direction: column; } .resource-results :global(.item-actions > *) { width: 100%; min-width: 0; flex: none; } .resource-results :global(.resource-row) { grid-template-columns: auto minmax(0,1fr) auto; } .resource-results :global(.row-size) { display: none; } }
+</style>

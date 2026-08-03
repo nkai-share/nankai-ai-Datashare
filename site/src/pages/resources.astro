@@ -1,0 +1,19 @@
+---
+import SiteShell from '../layouts/SiteShell.astro';
+import ResourceExplorer from '../components/ResourceExplorer.astro';
+import resourcesData from '../data/resources.json';
+import type { Resource } from '../types';
+const resources = resourcesData as Resource[];
+---
+<SiteShell title="资料大厅" description="按学期、课程、分类和文件类型检索南开大学人工智能学院课程资料">
+  <header class="page-hero">
+    <div class="nk-container"><span class="nk-eyebrow">Resource library</span><h1>资料大厅</h1><p>搜索文件名，并组合学期、课程、资料分类和文件类型筛选。筛选结果会保存在网址中，方便分享。</p></div>
+  </header>
+  <section class="nk-container explorer-wrap"><ResourceExplorer resources={resources} /></section>
+</SiteShell>
+<style>
+  .page-hero { padding: 62px 0 34px; }
+  h1 { margin: 9px 0 10px; font-size: clamp(2.6rem, 6vw, 4.8rem); letter-spacing: -.065em; }
+  .page-hero p { max-width: 720px; margin: 0; color: var(--nk-muted); line-height: 1.75; }
+  .explorer-wrap { padding-bottom: 40px; }
+</style>

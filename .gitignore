@@ -2,3 +2,8 @@
 ._.DS_Store
 .obsidian
 .vscode
+site/node_modules/
+site/dist/
+site/.astro/
+__pycache__/
+*.pyc

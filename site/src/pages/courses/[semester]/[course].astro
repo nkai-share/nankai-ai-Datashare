@@ -1,0 +1,41 @@
+---
+import SiteShell from '../../../layouts/SiteShell.astro';
+import ResourceExplorer from '../../../components/ResourceExplorer.astro';
+import resourcesData from '../../../data/resources.json';
+import coursesData from '../../../data/courses.json';
+import type { Course, Resource } from '../../../types';
+
+export function getStaticPaths() {
+  return (coursesData as unknown as Course[]).map((course) => ({
+    params: { semester: course.semester, course: course.name },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props as { course: Course };
+const resources = (resourcesData as Resource[]).filter((item) => item.semester === course.semester && item.course === course.name);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const extensionSummary = Object.entries(course.extensions).sort((a, b) => b[1] - a[1]).slice(0, 5);
+---
+<SiteShell title={course.name} description={`${course.semester} ${course.name}课程资料，共 ${course.resourceCount} 份`}>
+  <header class="course-hero">
+    <div class="nk-container">
+      <nav class="breadcrumb" aria-label="面包屑"><a href={`${base}/`}>首页</a><span>/</span><a href={`${base}/resources/?semester=${encodeURIComponent(course.semester)}`}>{course.semester}</a><span>/</span><b>{course.name}</b></nav>
+      <div class="course-title"><div><span class="nk-eyebrow">Course resources</span><h1>{course.name}</h1><p>{course.semester} · 已收录 {course.resourceCount} 份资料</p></div><a class="nk-button nk-button--primary" href={`${base}/contribute/`}>补充课程资料</a></div>
+      <div class="summary-chips">{extensionSummary.map(([extension, count]) => <span>{extension.toUpperCase()} {count}</span>)}{course.categories.slice(0, 4).map((item) => <span>{item.name} {item.count}</span>)}</div>
+    </div>
+  </header>
+  <section class="nk-container explorer-wrap"><ResourceExplorer resources={resources} fixedSemester={course.semester} fixedCourse={course.name} /></section>
+</SiteShell>
+<style>
+  .course-hero { padding: 38px 0 34px; }
+  .breadcrumb { display: flex; gap: 8px; align-items: center; color: var(--nk-muted); font-size: .8rem; }
+  .breadcrumb a { text-decoration: none; }.breadcrumb b { color: var(--nk-text); }
+  .course-title { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-top: 38px; }
+  h1 { margin: 8px 0; font-size: clamp(2.5rem, 6vw, 4.7rem); letter-spacing: -.06em; }
+  .course-title p { margin: 0; color: var(--nk-muted); }
+  .summary-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 25px; }
+  .summary-chips span { padding: 6px 9px; border: 1px solid var(--nk-border); border-radius: 999px; color: var(--nk-muted); background: var(--nk-surface); font-size: .72rem; }
+  .explorer-wrap { padding-bottom: 40px; }
+  @media (max-width: 620px) { .course-title { align-items: flex-start; flex-direction: column; } }
+</style>

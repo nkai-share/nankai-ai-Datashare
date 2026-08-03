@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nkai-share.github.io/nankai-ai-Datashare/sitemap-index.xml

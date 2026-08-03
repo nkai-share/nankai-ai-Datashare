@@ -1,0 +1,25 @@
+---
+const { semesterCounts } = Astro.props as { semesterCounts: Record<string, number> };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const order = ['大一上', '大一下', '大二上', '大二下', '大三上', '大三下', '大四上', '大四下'];
+const semesters = Object.entries(semesterCounts).sort(([a], [b]) => order.indexOf(a) - order.indexOf(b));
+---
+<div class="semester-grid">
+  {semesters.map(([semester, count], index) => (
+    <a class="semester nk-card" href={`${base}/resources/?semester=${encodeURIComponent(semester)}`}>
+      <span class="semester-no">0{index + 1}</span><div><b>{semester}</b><small>{count} 份资料</small></div><span class="arrow">↗</span>
+    </a>
+  ))}
+</div>
+<style>
+  .semester-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+  .semester { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; min-height: 106px; padding: 20px; text-decoration: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .semester:hover { transform: translateY(-4px); border-color: rgba(155,93,229,.42); box-shadow: var(--nk-shadow); }
+  .semester-no { color: var(--nk-primary-light); font-size: .75rem; font-weight: 850; }
+  b, small { display: block; }
+  b { font-size: 1.16rem; }
+  small { margin-top: 7px; color: var(--nk-muted); }
+  .arrow { color: var(--nk-muted); font-size: 1.2rem; }
+  @media (max-width: 800px) { .semester-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .semester-grid { grid-template-columns: 1fr; } }
+</style>

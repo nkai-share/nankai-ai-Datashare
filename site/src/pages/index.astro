@@ -1,0 +1,62 @@
+---
+import SiteShell from '../layouts/SiteShell.astro';
+import HeroSearch from '../components/HeroSearch.astro';
+import StatsPanel from '../components/StatsPanel.astro';
+import SemesterGrid from '../components/SemesterGrid.astro';
+import CourseCard from '../components/CourseCard.astro';
+import RecentUpdates from '../components/RecentUpdates.astro';
+import ContributeBanner from '../components/ContributeBanner.astro';
+import resourcesData from '../data/resources.json';
+import coursesData from '../data/courses.json';
+import statisticsData from '../data/statistics.json';
+import type { Course, Resource, Statistics } from '../types';
+
+const resources = resourcesData as Resource[];
+const courses = coursesData as unknown as Course[];
+const statistics = statisticsData as Statistics;
+const popularCourses = [...courses].sort((a, b) => b.resourceCount - a.resourceCount).slice(0, 6);
+const recentIds = new Set(statistics.recentResourceIds);
+const recentResources = resources.filter((item) => recentIds.has(item.id)).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<SiteShell>
+  <HeroSearch />
+  <StatsPanel statistics={statistics} />
+
+  <section class="nk-section">
+    <div class="nk-container">
+      <span class="nk-eyebrow">Browse by semester</span><h2 class="nk-section-title">从你所在的学期开始</h2><p class="nk-section-copy">无需翻阅冗长目录，选择学期即可查看对应课程资料。</p>
+      <SemesterGrid semesterCounts={statistics.semesterResourceCounts} />
+    </div>
+  </section>
+
+  {popularCourses.length > 0 && <section class="nk-section courses-section">
+    <div class="nk-container">
+      <div class="section-head"><div><span class="nk-eyebrow">Popular courses</span><h2 class="nk-section-title">资料较丰富的课程</h2></div><a href={`${base}/resources/`}>查看全部 <span aria-hidden="true">→</span></a></div>
+      <div class="course-grid">{popularCourses.map((course) => <CourseCard course={course} />)}</div>
+    </div>
+  </section>}
+
+  {recentResources.length > 0 && <section class="nk-section">
+    <div class="nk-container">
+      <div class="section-head"><div><span class="nk-eyebrow">Recently updated</span><h2 class="nk-section-title">最近更新</h2><p class="nk-section-copy">跟进仓库中近期补充和整理的资料。</p></div><a href={`${base}/resources/?sort=latest`}>更多更新 <span aria-hidden="true">→</span></a></div>
+      <RecentUpdates resources={recentResources} />
+    </div>
+  </section>}
+
+  <section class="nk-section"><div class="nk-container"><ContributeBanner /></div></section>
+  <section class="compliance"><div class="nk-container"><b>使用提示</b><p>本项目由学生自发维护，所有资料仅供学习交流，禁止用于商业用途。资料可能存在遗漏或错误，请以任课教师要求为准。</p></div></section>
+</SiteShell>
+
+<style>
+  .courses-section { background: color-mix(in srgb, var(--nk-surface-solid) 42%, transparent); border-block: 1px solid var(--nk-border); }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+  .section-head > a { padding-bottom: 6px; color: var(--nk-primary-light); font-weight: 750; text-decoration: none; white-space: nowrap; }
+  .course-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 26px; }
+  .compliance { padding: 24px 0; border-block: 1px solid var(--nk-border); color: var(--nk-muted); background: color-mix(in srgb, var(--nk-primary) 5%, transparent); }
+  .compliance .nk-container { display: flex; gap: 16px; align-items: baseline; }
+  .compliance b { color: var(--nk-text); white-space: nowrap; }
+  .compliance p { margin: 0; line-height: 1.7; }
+  @media (max-width: 850px) { .course-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 560px) { .course-grid { grid-template-columns: 1fr; } .section-head { align-items: flex-start; } .compliance .nk-container { align-items: flex-start; flex-direction: column; } }
+</style>

@@ -1,0 +1,25 @@
+---
+import type { Statistics } from '../types';
+const { statistics } = Astro.props as { statistics: Statistics };
+const stats = [
+  { value: statistics.semesterCount, label: '覆盖学期', suffix: '个' },
+  { value: statistics.courseCount, label: '课程数量', suffix: '门' },
+  { value: statistics.resourceCount, label: '资料文件', suffix: '份' },
+  { value: statistics.totalSizeText, label: '资料总量', suffix: '' },
+];
+---
+<section class="stats-wrap nk-container" aria-label="平台数据统计">
+  <div class="stats nk-card">
+    {stats.map((item) => <div class="stat"><strong>{item.value}<small>{item.suffix}</small></strong><span>{item.label}</span></div>)}
+  </div>
+</section>
+<style>
+  .stats-wrap { margin-top: -18px; position: relative; z-index: 5; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 25px 20px; box-shadow: var(--nk-shadow); }
+  .stat { display: grid; place-items: center; gap: 4px; padding: 8px; border-right: 1px solid var(--nk-border); text-align: center; }
+  .stat:last-child { border-right: 0; }
+  strong { font-size: clamp(1.55rem, 3vw, 2.4rem); letter-spacing: -.045em; }
+  small { margin-left: 3px; color: var(--nk-primary-light); font-size: .8rem; }
+  span { color: var(--nk-muted); font-size: .88rem; }
+  @media (max-width: 620px) { .stats { grid-template-columns: repeat(2, 1fr); } .stat:nth-child(2) { border-right: 0; } .stat:nth-child(-n+2) { border-bottom: 1px solid var(--nk-border); } }
+</style>

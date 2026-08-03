@@ -1,0 +1,14 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="contribute nk-card">
+  <div><span class="nk-eyebrow">Share together</span><h2>你的一份资料，可能帮到很多同学。</h2><p>欢迎通过 GitHub Pull Request 或邮件补充真题、笔记与课程资料。我们会保留合理署名，并坚持无偿分享。</p></div>
+  <div class="actions"><a class="nk-button nk-button--primary" href={`${base}/contribute/`}>查看投稿指南</a><a class="nk-button" href="mailto:nkai_share@163.com">邮件投稿</a></div>
+</section>
+<style>
+  .contribute { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: clamp(26px, 5vw, 52px); background: linear-gradient(120deg, color-mix(in srgb, var(--nk-primary) 12%, var(--nk-surface)), var(--nk-surface)); }
+  h2 { margin: 8px 0 10px; font-size: clamp(1.5rem, 3vw, 2.25rem); letter-spacing: -.04em; }
+  p { max-width: 700px; margin: 0; color: var(--nk-muted); line-height: 1.75; }
+  .actions { display: flex; gap: 10px; flex: 0 0 auto; }
+  @media (max-width: 760px) { .contribute { align-items: flex-start; flex-direction: column; } .actions { flex-wrap: wrap; } }
+</style>

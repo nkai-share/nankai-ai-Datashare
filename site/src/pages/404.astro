@@ -1,0 +1,14 @@
+---
+import SiteShell from '../layouts/SiteShell.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<SiteShell title="页面未找到">
+  <section class="not-found nk-container"><span>404</span><h1>这份资料不在这里</h1><p>页面可能已移动或链接有误。你可以返回资料大厅重新搜索。</p><div><a class="nk-button nk-button--primary" href={`${base}/resources/`}>前往资料大厅</a><a class="nk-button" href={`${base}/`}>返回首页</a></div></section>
+</SiteShell>
+<style>
+  .not-found { min-height: 65vh; display: grid; place-content: center; justify-items: center; text-align: center; }
+  .not-found > span { color: var(--nk-primary-light); font-size: 1rem; font-weight: 900; letter-spacing: .2em; }
+  h1 { margin: 14px 0 10px; font-size: clamp(2.4rem, 7vw, 5rem); letter-spacing: -.06em; }
+  p { margin: 0 0 26px; color: var(--nk-muted); }
+  .not-found div { display: flex; gap: 10px; }
+</style>

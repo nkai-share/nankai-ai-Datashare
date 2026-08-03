@@ -1,0 +1,928 @@
+[
+  {
+    "semester": "大一上",
+    "name": "大学物理（工科伯苓班）",
+    "slug": "%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%EF%BC%88%E5%B7%A5%E7%A7%91%E4%BC%AF%E8%8B%93%E7%8F%AD%EF%BC%89",
+    "resourceCount": 1,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 1
+      }
+    ],
+    "extensions": {
+      "pdf": 1
+    },
+    "latestUpdatedAt": "2026-03-08T20:18:45+08:00"
+  },
+  {
+    "semester": "大一上",
+    "name": "思想道德与法治",
+    "slug": "%E6%80%9D%E6%83%B3%E9%81%93%E5%BE%B7%E4%B8%8E%E6%B3%95%E6%B2%BB",
+    "resourceCount": 7,
+    "categories": [
+      {
+        "name": "往年真题",
+        "count": 5
+      },
+      {
+        "name": "思修教材及重点",
+        "count": 2
+      }
+    ],
+    "extensions": {
+      "docx": 3,
+      "pdf": 4
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一上",
+    "name": "线性代数",
+    "slug": "%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0",
+    "resourceCount": 21,
+    "categories": [
+      {
+        "name": "其他院校",
+        "count": 6
+      },
+      {
+        "name": "往年真题",
+        "count": 15
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 19
+    },
+    "latestUpdatedAt": "2026-03-08T20:18:45+08:00"
+  },
+  {
+    "semester": "大一上",
+    "name": "高等数学（A类）I",
+    "slug": "%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88A%E7%B1%BB%EF%BC%89I",
+    "resourceCount": 64,
+    "categories": [
+      {
+        "name": "2024高数A I",
+        "count": 2
+      },
+      {
+        "name": "信息类一元微分学期末考试试卷",
+        "count": 34
+      },
+      {
+        "name": "信息类一元积分学期末考试试卷",
+        "count": 8
+      },
+      {
+        "name": "其他院校",
+        "count": 13
+      },
+      {
+        "name": "未分类",
+        "count": 7
+      }
+    ],
+    "extensions": {
+      "docx": 6,
+      "jpg": 24,
+      "pdf": 34
+    },
+    "latestUpdatedAt": "2026-03-10T15:06:55+08:00"
+  },
+  {
+    "semester": "大一上",
+    "name": "高级语言程序设计2-1",
+    "slug": "%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-1",
+    "resourceCount": 3,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 3
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 1
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一下",
+    "name": "大学物理学（一）",
+    "slug": "%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89",
+    "resourceCount": 25,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 1
+      },
+      {
+        "name": "试卷",
+        "count": 24
+      }
+    ],
+    "extensions": {
+      "doc": 12,
+      "docx": 4,
+      "pdf": 9
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一下",
+    "name": "概率论与数理统计",
+    "slug": "%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1",
+    "resourceCount": 75,
+    "categories": [
+      {
+        "name": "张建磊习题",
+        "count": 12
+      },
+      {
+        "name": "未分类",
+        "count": 1
+      },
+      {
+        "name": "概率论往年试题",
+        "count": 24
+      },
+      {
+        "name": "模拟题",
+        "count": 24
+      },
+      {
+        "name": "浙大概率论",
+        "count": 14
+      }
+    ],
+    "extensions": {
+      "doc": 5,
+      "docx": 1,
+      "jpg": 5,
+      "pdf": 62,
+      "ppt": 1,
+      "pptx": 1
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一下",
+    "name": "马克思主义基本原理",
+    "slug": "%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86",
+    "resourceCount": 42,
+    "categories": [
+      {
+        "name": "学习通马原答案",
+        "count": 20
+      },
+      {
+        "name": "往年南开马原资料",
+        "count": 7
+      },
+      {
+        "name": "未分类",
+        "count": 5
+      },
+      {
+        "name": "浙大马原资料",
+        "count": 10
+      }
+    ],
+    "extensions": {
+      "doc": 2,
+      "docx": 1,
+      "pdf": 19,
+      "png": 20
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一下",
+    "name": "高等数学（A类）II",
+    "slug": "%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88A%E7%B1%BB%EF%BC%89II",
+    "resourceCount": 49,
+    "categories": [
+      {
+        "name": "其他985考试题",
+        "count": 15
+      },
+      {
+        "name": "南开往年考试题",
+        "count": 34
+      }
+    ],
+    "extensions": {
+      "doc": 8,
+      "docx": 1,
+      "jpg": 4,
+      "pdf": 35,
+      "png": 1
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大一下",
+    "name": "高级语言程序设计2-2",
+    "slug": "%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-2",
+    "resourceCount": 24,
+    "categories": [
+      {
+        "name": "c++上机",
+        "count": 18
+      },
+      {
+        "name": "南开大学c++真题",
+        "count": 4
+      },
+      {
+        "name": "未分类",
+        "count": 2
+      }
+    ],
+    "extensions": {
+      "cpp": 5,
+      "doc": 4,
+      "docx": 7,
+      "pdf": 5,
+      "txt": 3
+    },
+    "latestUpdatedAt": "2026-03-08T11:49:14+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "习概",
+    "slug": "%E4%B9%A0%E6%A6%82",
+    "resourceCount": 6,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 6
+      }
+    ],
+    "extensions": {
+      "docx": 5,
+      "pdf": 1
+    },
+    "latestUpdatedAt": "2026-02-05T14:38:47+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "人工智能技术",
+    "slug": "%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8A%80%E6%9C%AF",
+    "resourceCount": 33,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 15
+      },
+      {
+        "name": "个人总结笔记",
+        "count": 7
+      },
+      {
+        "name": "未分类",
+        "count": 11
+      }
+    ],
+    "extensions": {
+      "docx": 7,
+      "pdf": 23,
+      "pptx": 1,
+      "txt": 2
+    },
+    "latestUpdatedAt": "2026-06-18T20:04:35+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "信号与系统",
+    "slug": "%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F",
+    "resourceCount": 26,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 6
+      },
+      {
+        "name": "作业",
+        "count": 10
+      },
+      {
+        "name": "实验",
+        "count": 8
+      },
+      {
+        "name": "期末",
+        "count": 2
+      }
+    ],
+    "extensions": {
+      "docx": 6,
+      "pdf": 20
+    },
+    "latestUpdatedAt": "2026-02-05T14:38:47+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "数字电子技术",
+    "slug": "%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF",
+    "resourceCount": 37,
+    "categories": [
+      {
+        "name": "往年作业答案",
+        "count": 13
+      },
+      {
+        "name": "往年期末重点和复习总结",
+        "count": 5
+      },
+      {
+        "name": "往年考试题",
+        "count": 6
+      },
+      {
+        "name": "未分类",
+        "count": 1
+      },
+      {
+        "name": "自学资源推荐",
+        "count": 2
+      },
+      {
+        "name": "课程课件和教材",
+        "count": 10
+      }
+    ],
+    "extensions": {
+      "doc": 3,
+      "docx": 2,
+      "file": 1,
+      "pdf": 22,
+      "pptx": 9
+    },
+    "latestUpdatedAt": "2026-02-07T10:08:00+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "深度学习",
+    "slug": "%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0",
+    "resourceCount": 13,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 7
+      },
+      {
+        "name": "往年试题",
+        "count": 3
+      },
+      {
+        "name": "知识点",
+        "count": 3
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 10,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-06-18T20:04:35+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "现代控制论",
+    "slug": "%E7%8E%B0%E4%BB%A3%E6%8E%A7%E5%88%B6%E8%AE%BA",
+    "resourceCount": 37,
+    "categories": [
+      {
+        "name": "平时作业题",
+        "count": 11
+      },
+      {
+        "name": "往年考试范围或复习资料",
+        "count": 17
+      },
+      {
+        "name": "课件",
+        "count": 9
+      }
+    ],
+    "extensions": {
+      "docx": 4,
+      "pdf": 26,
+      "txt": 7
+    },
+    "latestUpdatedAt": "2026-06-18T20:04:35+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "运动控制",
+    "slug": "%E8%BF%90%E5%8A%A8%E6%8E%A7%E5%88%B6",
+    "resourceCount": 40,
+    "categories": [
+      {
+        "name": "运动控制23级",
+        "count": 13
+      },
+      {
+        "name": "运动控制往年",
+        "count": 27
+      }
+    ],
+    "extensions": {
+      "doc": 3,
+      "docx": 2,
+      "jpg": 8,
+      "mp4": 1,
+      "pdf": 19,
+      "png": 1,
+      "ppt": 2,
+      "pptx": 4
+    },
+    "latestUpdatedAt": "2026-02-05T14:38:47+08:00"
+  },
+  {
+    "semester": "大三上",
+    "name": "运筹学",
+    "slug": "%E8%BF%90%E7%AD%B9%E5%AD%A6",
+    "resourceCount": 17,
+    "categories": [
+      {
+        "name": "作业",
+        "count": 5
+      },
+      {
+        "name": "未分类",
+        "count": 4
+      },
+      {
+        "name": "课程课件",
+        "count": 8
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 14,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-02-05T14:38:47+08:00"
+  },
+  {
+    "semester": "大三下",
+    "name": "强化学习",
+    "slug": "%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0",
+    "resourceCount": 14,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 10
+      },
+      {
+        "name": "往年真题",
+        "count": 4
+      }
+    ],
+    "extensions": {
+      "docx": 1,
+      "pdf": 12,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-08-03T13:57:19+08:00"
+  },
+  {
+    "semester": "大三下",
+    "name": "智能工程",
+    "slug": "%E6%99%BA%E8%83%BD%E5%B7%A5%E7%A8%8B",
+    "resourceCount": 14,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 8
+      },
+      {
+        "name": "往年真题",
+        "count": 6
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 12
+    },
+    "latestUpdatedAt": "2026-08-03T13:50:56+08:00"
+  },
+  {
+    "semester": "大三下",
+    "name": "机器人学导论",
+    "slug": "%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AD%A6%E5%AF%BC%E8%AE%BA",
+    "resourceCount": 11,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 9
+      },
+      {
+        "name": "往年真题",
+        "count": 2
+      }
+    ],
+    "extensions": {
+      "docx": 1,
+      "pdf": 2,
+      "pptx": 7,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-08-03T13:50:56+08:00"
+  },
+  {
+    "semester": "大三下",
+    "name": "自动检测技术",
+    "slug": "%E8%87%AA%E5%8A%A8%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF",
+    "resourceCount": 14,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 13
+      },
+      {
+        "name": "未分类",
+        "count": 1
+      }
+    ],
+    "extensions": {
+      "docx": 1,
+      "pptx": 13
+    },
+    "latestUpdatedAt": "2026-06-05T00:06:58+08:00"
+  },
+  {
+    "semester": "大三下",
+    "name": "计组",
+    "slug": "%E8%AE%A1%E7%BB%84",
+    "resourceCount": 45,
+    "categories": [
+      {
+        "name": "参考题目",
+        "count": 30
+      },
+      {
+        "name": "往年真题",
+        "count": 2
+      },
+      {
+        "name": "课程教案",
+        "count": 13
+      }
+    ],
+    "extensions": {
+      "docx": 2,
+      "pdf": 43
+    },
+    "latestUpdatedAt": "2026-08-03T13:50:56+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "史纲",
+    "slug": "%E5%8F%B2%E7%BA%B2",
+    "resourceCount": 61,
+    "categories": [
+      {
+        "name": "中国近现代史纲要",
+        "count": 18
+      },
+      {
+        "name": "史纲",
+        "count": 27
+      },
+      {
+        "name": "未分类",
+        "count": 16
+      }
+    ],
+    "extensions": {
+      "doc": 8,
+      "docx": 32,
+      "pdf": 19,
+      "png": 1,
+      "xls": 1
+    },
+    "latestUpdatedAt": "2026-02-07T10:00:38+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "大学语文",
+    "slug": "%E5%A4%A7%E5%AD%A6%E8%AF%AD%E6%96%87",
+    "resourceCount": 16,
+    "categories": [
+      {
+        "name": "大语默写",
+        "count": 4
+      },
+      {
+        "name": "张昊苏笔记",
+        "count": 5
+      },
+      {
+        "name": "未分类",
+        "count": 7
+      }
+    ],
+    "extensions": {
+      "doc": 2,
+      "docx": 9,
+      "pdf": 4,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-03-10T15:06:55+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "微分复变",
+    "slug": "%E5%BE%AE%E5%88%86%E5%A4%8D%E5%8F%98",
+    "resourceCount": 15,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 4
+      },
+      {
+        "name": "试卷",
+        "count": 11
+      }
+    ],
+    "extensions": {
+      "doc": 1,
+      "docx": 10,
+      "pdf": 4
+    },
+    "latestUpdatedAt": "2026-03-10T15:06:55+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "数据结构",
+    "slug": "%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84",
+    "resourceCount": 66,
+    "categories": [
+      {
+        "name": "别的学院的",
+        "count": 33
+      },
+      {
+        "name": "未分类",
+        "count": 6
+      },
+      {
+        "name": "练习题",
+        "count": 18
+      },
+      {
+        "name": "课件",
+        "count": 9
+      }
+    ],
+    "extensions": {
+      "doc": 22,
+      "docx": 12,
+      "pdf": 32
+    },
+    "latestUpdatedAt": "2026-02-07T10:00:38+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "电路",
+    "slug": "%E7%94%B5%E8%B7%AF",
+    "resourceCount": 18,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 4
+      },
+      {
+        "name": "试卷",
+        "count": 14
+      }
+    ],
+    "extensions": {
+      "doc": 2,
+      "docx": 3,
+      "pdf": 13
+    },
+    "latestUpdatedAt": "2026-03-10T15:06:55+08:00"
+  },
+  {
+    "semester": "大二上",
+    "name": "离散数学",
+    "slug": "%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6",
+    "resourceCount": 50,
+    "categories": [
+      {
+        "name": "往年真题",
+        "count": 30
+      },
+      {
+        "name": "未分类",
+        "count": 20
+      }
+    ],
+    "extensions": {
+      "docx": 6,
+      "jpg": 19,
+      "pdf": 25
+    },
+    "latestUpdatedAt": "2026-02-07T10:00:38+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "机器学习",
+    "slug": "%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0",
+    "resourceCount": 30,
+    "categories": [
+      {
+        "name": "机器学习大作业",
+        "count": 5
+      },
+      {
+        "name": "机器学习实验",
+        "count": 16
+      },
+      {
+        "name": "讲义（课件）",
+        "count": 9
+      }
+    ],
+    "extensions": {
+      "docx": 6,
+      "ipynb": 1,
+      "m": 11,
+      "pdf": 9,
+      "py": 2,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-03-08T20:18:45+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "机器视觉",
+    "slug": "%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89",
+    "resourceCount": 26,
+    "categories": [
+      {
+        "name": "复习笔记",
+        "count": 12
+      },
+      {
+        "name": "未分类",
+        "count": 2
+      },
+      {
+        "name": "课程课件",
+        "count": 12
+      }
+    ],
+    "extensions": {
+      "docx": 1,
+      "md": 3,
+      "pdf": 21,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-03-08T12:07:26+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "机械工程基础",
+    "slug": "%E6%9C%BA%E6%A2%B0%E5%B7%A5%E7%A8%8B%E5%9F%BA%E7%A1%80",
+    "resourceCount": 36,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 21
+      },
+      {
+        "name": "作业",
+        "count": 14
+      },
+      {
+        "name": "未分类",
+        "count": 1
+      }
+    ],
+    "extensions": {
+      "docx": 14,
+      "pdf": 21,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-02-08T12:49:23+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "模拟电子技术",
+    "slug": "%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF",
+    "resourceCount": 32,
+    "categories": [
+      {
+        "name": "ppt",
+        "count": 12
+      },
+      {
+        "name": "复习笔记",
+        "count": 3
+      },
+      {
+        "name": "实验",
+        "count": 5
+      },
+      {
+        "name": "往年作业题答案（部分）",
+        "count": 4
+      },
+      {
+        "name": "往年题",
+        "count": 8
+      }
+    ],
+    "extensions": {
+      "doc": 7,
+      "pdf": 14,
+      "ppt": 10,
+      "txt": 1
+    },
+    "latestUpdatedAt": "2026-02-16T19:36:29+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "毛概",
+    "slug": "%E6%AF%9B%E6%A6%82",
+    "resourceCount": 8,
+    "categories": [
+      {
+        "name": "未分类",
+        "count": 8
+      }
+    ],
+    "extensions": {
+      "docx": 3,
+      "jpg": 1,
+      "pdf": 1,
+      "txt": 3
+    },
+    "latestUpdatedAt": "2026-02-16T19:36:29+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "算法设计与分析",
+    "slug": "%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90",
+    "resourceCount": 208,
+    "categories": [
+      {
+        "name": "作业题答案",
+        "count": 199
+      },
+      {
+        "name": "未分类",
+        "count": 2
+      },
+      {
+        "name": "课件和教材",
+        "count": 7
+      }
+    ],
+    "extensions": {
+      "pdf": 206,
+      "txt": 2
+    },
+    "latestUpdatedAt": "2026-02-08T12:49:23+08:00"
+  },
+  {
+    "semester": "大二下",
+    "name": "自动控制原理",
+    "slug": "%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6%E5%8E%9F%E7%90%86",
+    "resourceCount": 38,
+    "categories": [
+      {
+        "name": "作业",
+        "count": 14
+      },
+      {
+        "name": "往年作业答案（不全）",
+        "count": 6
+      },
+      {
+        "name": "往年题",
+        "count": 3
+      },
+      {
+        "name": "自控实验",
+        "count": 7
+      },
+      {
+        "name": "课件",
+        "count": 8
+      }
+    ],
+    "extensions": {
+      "docx": 6,
+      "pdf": 32
+    },
+    "latestUpdatedAt": "2026-03-08T20:18:45+08:00"
+  }
+]
