@@ -53,6 +53,6 @@ NKAI DataShare 是由学生自发维护的南开大学人工智能学院课程�
 - 资料平台：[NKAI DataShare](https://nkai-share.github.io/nankai-ai-Datashare/)
 - GitHub：[nkai-share/nankai-ai-Datashare](https://github.com/nkai-share/nankai-ai-Datashare)
 - 官方邮箱：[nkai_share@163.com](mailto:nkai_share@163.com)
-- 最后更新日期：2026.08.03
+- 最后更新日期：2026.08.04
 
 觉得项目有帮助，欢迎把仓库或资料平台分享给更多同学。

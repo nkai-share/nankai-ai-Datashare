@@ -764,28 +764,26 @@
     "semester": "大二下",
     "name": "机器视觉",
     "slug": "%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89",
-    "resourceCount": 26,
+    "resourceCount": 33,
     "categories": [
       {
         "name": "复习笔记",
-        "count": 12
-      },
-      {
-        "name": "未分类",
-        "count": 2
+        "count": 20
       },
       {
         "name": "课程课件",
-        "count": 12
+        "count": 13
       }
     ],
     "extensions": {
-      "docx": 1,
+      "docx": 3,
       "md": 3,
-      "pdf": 21,
-      "txt": 1
+      "pdf": 23,
+      "png": 1,
+      "pptx": 1,
+      "txt": 2
     },
-    "latestUpdatedAt": "2026-03-08T12:07:26+08:00"
+    "latestUpdatedAt": "2026-06-08T08:12:02+00:00"
   },
   {
     "semester": "大二下",
@@ -817,7 +815,7 @@
     "semester": "大二下",
     "name": "模拟电子技术",
     "slug": "%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF",
-    "resourceCount": 32,
+    "resourceCount": 67,
     "categories": [
       {
         "name": "ppt",
@@ -825,7 +823,7 @@
       },
       {
         "name": "复习笔记",
-        "count": 3
+        "count": 4
       },
       {
         "name": "实验",
@@ -837,49 +835,60 @@
       },
       {
         "name": "往年题",
-        "count": 8
+        "count": 21
+      },
+      {
+        "name": "练习题",
+        "count": 21
       }
     ],
     "extensions": {
-      "doc": 7,
-      "pdf": 14,
-      "ppt": 10,
+      "doc": 23,
+      "docx": 1,
+      "jpg": 7,
+      "pdf": 23,
+      "ppt": 11,
+      "pptx": 1,
       "txt": 1
     },
-    "latestUpdatedAt": "2026-02-16T19:36:29+08:00"
+    "latestUpdatedAt": "2026-03-18T05:45:58+00:00"
   },
   {
     "semester": "大二下",
     "name": "毛概",
     "slug": "%E6%AF%9B%E6%A6%82",
-    "resourceCount": 8,
+    "resourceCount": 14,
     "categories": [
       {
         "name": "未分类",
-        "count": 8
+        "count": 14
       }
     ],
     "extensions": {
-      "docx": 3,
+      "docx": 7,
       "jpg": 1,
-      "pdf": 1,
+      "pdf": 3,
       "txt": 3
     },
-    "latestUpdatedAt": "2026-02-16T19:36:29+08:00"
+    "latestUpdatedAt": "2026-06-08T08:16:20+00:00"
   },
   {
     "semester": "大二下",
     "name": "算法设计与分析",
     "slug": "%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90",
-    "resourceCount": 208,
+    "resourceCount": 210,
     "categories": [
       {
         "name": "作业题答案",
         "count": 199
       },
       {
+        "name": "复习笔记",
+        "count": 3
+      },
+      {
         "name": "未分类",
-        "count": 2
+        "count": 1
       },
       {
         "name": "课件和教材",
@@ -887,16 +896,16 @@
       }
     ],
     "extensions": {
-      "pdf": 206,
-      "txt": 2
+      "pdf": 207,
+      "txt": 3
     },
-    "latestUpdatedAt": "2026-02-08T12:49:23+08:00"
+    "latestUpdatedAt": "2026-06-08T08:09:10+00:00"
   },
   {
     "semester": "大二下",
     "name": "自动控制原理",
     "slug": "%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6%E5%8E%9F%E7%90%86",
-    "resourceCount": 38,
+    "resourceCount": 60,
     "categories": [
       {
         "name": "作业",
@@ -908,7 +917,7 @@
       },
       {
         "name": "往年题",
-        "count": 3
+        "count": 25
       },
       {
         "name": "自控实验",
@@ -920,9 +929,11 @@
       }
     ],
     "extensions": {
-      "docx": 6,
-      "pdf": 32
+      "doc": 4,
+      "docx": 16,
+      "pdf": 37,
+      "txt": 3
     },
-    "latestUpdatedAt": "2026-03-08T20:18:45+08:00"
+    "latestUpdatedAt": "2026-03-17T12:43:14+00:00"
   }
 ]
