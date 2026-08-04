@@ -1,0 +1,29 @@
+---
+import type { Resource } from '../types';
+const { resources, fixedSemester = '', fixedCourse = '' } = Astro.props as { resources: Resource[]; fixedSemester?: string; fixedCourse?: string };
+const semesters = [...new Set(resources.map((item) => item.semester))].sort();
+const courses = [...new Set(resources.map((item) => item.course))].sort();
+const extensions = [...new Set(resources.map((item) => item.extension))].sort();
+const categories = [...new Set(resources.map((item) => item.category))].sort();
+---
+<aside class="filter-panel nk-card" aria-label="资料筛选">
+  <div class="filter-head"><div><span class="nk-eyebrow">Filters</span><h2>筛选资料</h2></div><button type="button" data-clear-filters>全部清空</button></div>
+  <div class="filter-fields">
+    {!fixedSemester && <label><span>学期</span><select data-filter="semester"><option value="">全部学期</option>{semesters.map((value) => <option value={value}>{value}</option>)}</select></label>}
+    {!fixedCourse && <label><span>课程</span><select data-filter="course"><option value="">全部课程</option>{courses.map((value) => <option value={value}>{value}</option>)}</select></label>}
+    <label><span>文件类型</span><select data-filter="type"><option value="">全部类型</option>{extensions.map((value) => <option value={value}>{value.toUpperCase()}</option>)}</select></label>
+    <label><span>资料分类</span><select data-filter="category"><option value="">全部分类</option>{categories.map((value) => <option value={value}>{value}</option>)}</select></label>
+    <label><span>排序</span><select data-filter="sort"><option value="latest">最近更新</option><option value="name">文件名称</option><option value="size-desc">文件大小</option></select></label>
+  </div>
+</aside>
+<style>
+  .filter-panel { position: sticky; top: 88px; padding: 20px; }
+  .filter-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  .filter-head h2 { margin: 4px 0 0; font-size: 1.16rem; }
+  .filter-head button { padding: 4px; border: 0; color: var(--nk-primary-light); background: transparent; cursor: pointer; font-size: .78rem; font-weight: 750; }
+  .filter-fields { display: grid; gap: 16px; }
+  label span { display: block; margin-bottom: 7px; color: var(--nk-muted); font-size: .75rem; font-weight: 750; }
+  select { width: 100%; min-height: 43px; padding: 0 36px 0 12px; border: 1px solid var(--nk-border); border-radius: 11px; color: var(--nk-text); background: var(--nk-surface-solid); }
+  @media (max-width: 860px) { .filter-panel { position: static; } .filter-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .filter-fields { grid-template-columns: 1fr; } }
+</style>

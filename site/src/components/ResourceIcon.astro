@@ -1,0 +1,10 @@
+---
+const { extension = 'file' } = Astro.props as { extension?: string };
+const labels: Record<string, string> = { pdf: 'PDF', doc: 'DOC', docx: 'DOC', ppt: 'PPT', pptx: 'PPT', xls: 'XLS', xlsx: 'XLS', txt: 'TXT', md: 'MD', zip: 'ZIP', rar: 'RAR', '7z': '7Z', png: 'IMG', jpg: 'IMG', jpeg: 'IMG', webp: 'IMG', mp4: 'VID' };
+const kind = ['pdf'].includes(extension) ? 'red' : ['doc','docx'].includes(extension) ? 'blue' : ['ppt','pptx'].includes(extension) ? 'orange' : ['xls','xlsx'].includes(extension) ? 'green' : ['png','jpg','jpeg','webp'].includes(extension) ? 'cyan' : 'purple';
+---
+<span class={`resource-icon ${kind}`} aria-hidden="true">{labels[extension] || extension.slice(0, 4).toUpperCase()}</span>
+<style>
+  .resource-icon { display: grid; place-items: center; flex: 0 0 auto; width: 46px; height: 50px; border-radius: 12px; color: white; background: #765189; font-size: .7rem; font-weight: 900; letter-spacing: .03em; }
+  .red { background: linear-gradient(145deg, #ef476f, #a81f41); } .blue { background: linear-gradient(145deg, #4f8ef7, #2450a7); } .orange { background: linear-gradient(145deg, #ff9f43, #b75b13); } .green { background: linear-gradient(145deg, #40c987, #14704a); } .cyan { background: linear-gradient(145deg, #22d3ee, #14778c); }
+</style>

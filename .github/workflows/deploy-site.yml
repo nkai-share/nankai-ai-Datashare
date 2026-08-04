@@ -1,0 +1,62 @@
+name: Deploy Starlight Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '大一上/**'
+      - '大一下/**'
+      - '大二上/**'
+      - '大二下/**'
+      - '大三上/**'
+      - '大三下/**'
+      - 'scripts/**'
+      - 'site/**'
+      - '.github/workflows/deploy-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Generate and validate resource index
+        run: |
+          python scripts/generate_resource_index.py
+          python scripts/validate_resource_index.py
+
+      - name: Install, build, and upload site
+        uses: withastro/action@v6
+        with:
+          path: site
+          node-version: 22
+          package-manager: npm@10.9.8
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

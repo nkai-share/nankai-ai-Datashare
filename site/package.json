@@ -1,0 +1,29 @@
+{
+  "name": "nkai-datashare-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "python ../scripts/generate_resource_index.py",
+    "dev": "astro dev",
+    "prebuild": "python ../scripts/generate_resource_index.py",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "index": "python ../scripts/generate_resource_index.py",
+    "validate:index": "python ../scripts/validate_resource_index.py"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/starlight": "^0.41.5",
+    "astro": "^7.0.2",
+    "fuse.js": "^7.1.0",
+    "pdfjs-dist": "^6.2.108",
+    "sharp": "^0.35.3",
+    "starlight-theme-black": "^0.7.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

@@ -1,0 +1,23 @@
+---
+import type { Course } from '../types';
+const { course } = Astro.props as { course: Course };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const extensions = Object.entries(course.extensions).sort((a, b) => b[1] - a[1]).slice(0, 3);
+---
+<a class="course-card nk-card" href={`${base}/courses/${encodeURIComponent(course.semester)}/${encodeURIComponent(course.name)}/`}>
+  <div class="course-top"><span>{course.semester}</span><span aria-hidden="true">↗</span></div>
+  <h3>{course.name}</h3>
+  <p>{course.categories.slice(0, 2).map((item) => item.name).join(' · ') || '课程资料'}</p>
+  <div class="course-meta"><b>{course.resourceCount} 份资料</b><div>{extensions.map(([ext]) => <span>{ext.toUpperCase()}</span>)}</div></div>
+</a>
+<style>
+  .course-card { display: flex; flex-direction: column; min-height: 218px; padding: 22px; text-decoration: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .course-card:hover { transform: translateY(-4px); border-color: rgba(155,93,229,.42); box-shadow: var(--nk-shadow); }
+  .course-top { display: flex; justify-content: space-between; color: var(--nk-primary-light); font-size: .78rem; font-weight: 800; }
+  h3 { margin: 24px 0 8px; font-size: 1.28rem; letter-spacing: -.025em; }
+  p { margin: 0; color: var(--nk-muted); font-size: .88rem; line-height: 1.6; }
+  .course-meta { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 22px; border-top: 1px solid var(--nk-border); }
+  .course-meta b { font-size: .88rem; }
+  .course-meta div { display: flex; gap: 5px; }
+  .course-meta div span { padding: 4px 6px; border-radius: 6px; color: var(--nk-muted); background: color-mix(in srgb, var(--nk-primary) 8%, transparent); font-size: .64rem; font-weight: 800; }
+</style>

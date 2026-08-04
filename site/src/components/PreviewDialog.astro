@@ -1,0 +1,28 @@
+<dialog class="preview-dialog" data-preview-dialog aria-labelledby="preview-title">
+  <div class="preview-head"><div><span class="nk-eyebrow">资源预览</span><h2 id="preview-title" data-preview-title>预览资料</h2></div><button type="button" data-preview-close aria-label="关闭预览">×</button></div>
+  <div class="preview-body" data-preview-body></div>
+  <div class="preview-footer"><p>如预览失败，请使用新标签页或 GitHub 后备入口。</p><a class="nk-button nk-button--primary" data-preview-open target="_blank" rel="noreferrer">新标签打开</a></div>
+</dialog>
+<style>
+  .preview-dialog { width: min(1000px, calc(100vw - 24px)); height: min(780px, calc(100vh - 24px)); padding: 0; border: 1px solid var(--nk-border); border-radius: 22px; color: var(--nk-text); background: var(--nk-surface-solid); box-shadow: 0 28px 90px rgba(0,0,0,.32); }
+  .preview-dialog::backdrop { background: rgba(10,7,12,.66); backdrop-filter: blur(8px); }
+  .preview-head, .preview-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; }
+  .preview-head { border-bottom: 1px solid var(--nk-border); }
+  .preview-head h2 { margin: 4px 0 0; max-width: 780px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.05rem; }
+  .preview-head button { width: 38px; height: 38px; border: 1px solid var(--nk-border); border-radius: 50%; color: var(--nk-text); background: var(--nk-surface); cursor: pointer; font-size: 1.35rem; }
+  .preview-body { height: calc(100% - 145px); overflow: auto; background: var(--nk-bg); }
+  .preview-body :global(iframe), .preview-body :global(img) { display: block; width: 100%; height: 100%; border: 0; object-fit: contain; }
+  .preview-body :global(pre) { margin: 0; padding: 24px; white-space: pre-wrap; word-break: break-word; line-height: 1.65; }
+  .preview-body :global(.pdf-preview) { min-height: 100%; display: flex; flex-direction: column; }
+  .preview-body :global(.pdf-toolbar) { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-bottom: 1px solid var(--nk-border); background: color-mix(in srgb, var(--nk-surface-solid) 94%, transparent); backdrop-filter: blur(12px); }
+  .preview-body :global(.pdf-toolbar button) { min-height: 34px; padding: 0 11px; border: 1px solid var(--nk-border); border-radius: 9px; color: var(--nk-text); background: var(--nk-surface); cursor: pointer; font-weight: 700; }
+  .preview-body :global(.pdf-toolbar button:disabled) { opacity: .45; cursor: not-allowed; }
+  .preview-body :global(.pdf-toolbar span) { min-width: 145px; color: var(--nk-muted); text-align: center; font-size: .78rem; }
+  .preview-body :global(.pdf-stage) { flex: 1; display: flex; align-items: flex-start; justify-content: center; min-height: 360px; padding: 14px; overflow: auto; }
+  .preview-body :global(.pdf-stage canvas) { display: block; max-width: none; border-radius: 4px; background: white; box-shadow: 0 12px 36px rgba(0,0,0,.22); }
+  .preview-body :global(.preview-error) { align-self: center; max-width: 460px; margin: auto; padding: 28px; text-align: center; }
+  .preview-body :global(.preview-error p) { color: var(--nk-muted); line-height: 1.65; }
+  .preview-footer { border-top: 1px solid var(--nk-border); }
+  .preview-footer p { margin: 0; color: var(--nk-muted); font-size: .82rem; }
+  @media (max-width: 620px) { .preview-dialog { width: calc(100vw - 10px); height: calc(100vh - 12px); border-radius: 14px; } .preview-head, .preview-footer { padding-inline: 12px; } .preview-footer p { display: none; } .preview-body :global(.pdf-toolbar) { gap: 5px; } .preview-body :global(.pdf-toolbar button) { padding-inline: 8px; font-size: .74rem; } .preview-body :global(.pdf-toolbar span) { min-width: 105px; font-size: .7rem; } }
+</style>

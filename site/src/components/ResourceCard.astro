@@ -1,0 +1,27 @@
+---
+import ResourceIcon from './ResourceIcon.astro';
+import type { Resource } from '../types';
+const { resource } = Astro.props as { resource: Resource };
+const date = resource.updatedAt ? new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(resource.updatedAt)) : '未知';
+---
+<article class="resource-card nk-card" data-resource-id={resource.id}>
+  <div class="resource-heading"><ResourceIcon extension={resource.extension} /><div><h3>{resource.name}</h3><p>{resource.course} · {resource.semester}</p></div></div>
+  <div class="resource-tags"><span>{resource.category}</span><span>{resource.extension.toUpperCase()}</span></div>
+  <div class="resource-meta"><span>{resource.sizeText}</span><span>更新于 {date}</span></div>
+  <div class="resource-actions">
+    <a class="nk-button nk-button--primary" href={resource.rawUrl} target="_blank" rel="noreferrer">打开资料</a>
+    <a class="nk-button" href={resource.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+  </div>
+</article>
+<style>
+  .resource-card { display: flex; flex-direction: column; min-width: 0; padding: 20px; }
+  .resource-heading { display: flex; align-items: flex-start; gap: 13px; }
+  .resource-heading > div { min-width: 0; }
+  h3 { margin: 1px 0 6px; overflow-wrap: anywhere; font-size: 1rem; line-height: 1.45; }
+  p { margin: 0; color: var(--nk-muted); font-size: .82rem; }
+  .resource-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+  .resource-tags span { padding: 5px 8px; border-radius: 8px; color: var(--nk-muted); background: color-mix(in srgb, var(--nk-primary) 8%, transparent); font-size: .7rem; font-weight: 750; }
+  .resource-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding: 18px 0 14px; color: var(--nk-muted); font-size: .74rem; }
+  .resource-actions { display: flex; gap: 8px; }
+  .resource-actions .nk-button { flex: 1; min-height: 38px; padding-inline: 11px; font-size: .78rem; }
+</style>

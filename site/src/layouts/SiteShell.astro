@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'NKAI DataShare',
+  description = '南开大学人工智能学院课程资料共享平台',
+} = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#6f2c91" />
+    <link rel="icon" href={`${base}/favicon.svg`} />
+    <link rel="canonical" href={canonical} />
+    <title>{title === 'NKAI DataShare' ? title : `${title} · NKAI DataShare`}</title>
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('nk-theme');
+        const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="site-header">
+      <div class="nk-container header-inner">
+        <a class="brand" href={`${base}/`} aria-label="NKAI DataShare 首页">
+          <img src={`${base}/favicon.svg`} alt="" width="38" height="38" />
+          <span>NKAI <b>DataShare</b></span>
+        </a>
+        <nav aria-label="主导航">
+          <a href={`${base}/resources/`}>资料大厅</a>
+          <a href={`${base}/contribute/`}>投稿指南</a>
+          <a href={`${base}/about/`}>关于</a>
+          <a href="https://github.com/nkai-share/nankai-ai-Datashare" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="nk-container footer-inner">
+        <div><strong>NKAI DataShare</strong><p>无偿共享 · 禁止商业化 · 尊重资料贡献者</p></div>
+        <div class="footer-links"><a href="mailto:nkai_share@163.com">联系邮箱</a><a href="https://github.com/nkai-share/nankai-ai-Datashare/issues">反馈问题</a></div>
+      </div>
+    </footer>
+    <script>
+      document.querySelector<HTMLButtonElement>('.theme-toggle')?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('nk-theme', next);
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-link { position: fixed; z-index: 100; left: 12px; top: -60px; padding: 10px 14px; border-radius: 10px; background: var(--nk-primary); color: white; transition: top .15s; }
+  .skip-link:focus { top: 12px; }
+  .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--nk-border); background: color-mix(in srgb, var(--nk-bg) 82%, transparent); backdrop-filter: blur(20px); }
+  .header-inner { min-height: 70px; display: flex; align-items: center; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.05rem; letter-spacing: -.02em; white-space: nowrap; }
+  .brand b { color: var(--nk-primary-light); }
+  nav { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  nav a { padding: 9px 12px; border-radius: 10px; color: var(--nk-muted); font-weight: 650; text-decoration: none; }
+  nav a:hover, nav a:focus-visible { color: var(--nk-text); background: var(--nk-surface); }
+  .theme-toggle { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border: 1px solid var(--nk-border); border-radius: 50%; background: var(--nk-surface); color: var(--nk-text); cursor: pointer; }
+  .site-footer { margin-top: 64px; border-top: 1px solid var(--nk-border); background: color-mix(in srgb, var(--nk-surface-solid) 55%, transparent); }
+  .footer-inner { min-height: 150px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .footer-inner p { margin: 8px 0 0; color: var(--nk-muted); }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a { color: var(--nk-muted); }
+  @media (max-width: 760px) {
+    .header-inner { min-height: 62px; gap: 12px; }
+    .brand span { display: none; }
+    nav { gap: 0; overflow-x: auto; }
+    nav a { padding: 8px 9px; font-size: .88rem; white-space: nowrap; }
+    nav a:last-child { display: none; }
+    .footer-inner { align-items: flex-start; flex-direction: column; padding-block: 36px; }
+  }
+  @media (max-width: 600px) {
+    nav { display: none; }
+    .theme-toggle { margin-left: auto; }
+  }
+</style>

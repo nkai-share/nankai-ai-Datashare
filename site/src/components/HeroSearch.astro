@@ -1,0 +1,74 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="hero">
+  <div class="nk-container hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge"><span></span> 学生共建的开放资料平台</div>
+      <h1>打破信息差，<br /><em>让复习更简单。</em></h1>
+      <p>汇集南开大学人工智能学院课程真题、课件、笔记与复习资料。按学期、课程和文件类型快速找到你需要的内容。</p>
+      <form class="hero-search" action={`${base}/resources/`} method="get" role="search">
+        <label class="nk-sr-only" for="hero-query">搜索课程或资料</label>
+        <span aria-hidden="true">⌕</span>
+        <input id="hero-query" name="q" type="search" placeholder="搜索课程、真题、答案或文件名……" autocomplete="off" />
+        <button type="submit">搜索资料</button>
+        <kbd>Ctrl K</kbd>
+      </form>
+      <div class="hero-actions">
+        <a class="nk-button nk-button--primary" href={`${base}/resources/`}>进入资料大厅 <span aria-hidden="true">→</span></a>
+        <a class="nk-button nk-button--quiet" href={`${base}/contribute/`}>分享你的资料</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+      <div class="visual-card main-card">
+        <span class="file-mark">PDF</span>
+        <div><b>智能工程 · 期末复习</b><small>大三下 · 往年真题</small></div>
+      </div>
+      <div class="visual-card float-card one"><span>⌕</span><b>精准筛选</b></div>
+      <div class="visual-card float-card two"><span>↗</span><b>一键预览</b></div>
+      <div class="glow"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('keydown', (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      document.querySelector<HTMLInputElement>('#hero-query')?.focus();
+    }
+  });
+</script>
+
+<style>
+  .hero { min-height: 680px; display: grid; align-items: center; padding: 70px 0 56px; overflow: hidden; }
+  .hero-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(350px, .85fr); align-items: center; gap: 54px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px; border: 1px solid var(--nk-border); border-radius: 999px; color: var(--nk-muted); background: var(--nk-surface); font-weight: 650; font-size: .88rem; }
+  .hero-badge span { width: 8px; height: 8px; border-radius: 50%; background: var(--nk-accent); box-shadow: 0 0 0 5px rgba(34,211,238,.12); }
+  h1 { margin: 24px 0 20px; font-size: clamp(3.2rem, 6vw, 5.7rem); line-height: .98; letter-spacing: -.075em; }
+  h1 em { color: transparent; background: linear-gradient(105deg, var(--nk-primary-light), var(--nk-primary), #3c87a6); background-clip: text; font-style: normal; white-space: nowrap; }
+  .hero-copy > p { max-width: 680px; margin: 0; color: var(--nk-muted); font-size: clamp(1rem, 1.7vw, 1.18rem); line-height: 1.8; }
+  .hero-search { max-width: 720px; margin-top: 34px; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px; padding: 9px 10px 9px 17px; border: 1px solid var(--nk-border); border-radius: 20px; background: var(--nk-surface-solid); box-shadow: var(--nk-shadow); }
+  .hero-search > span { color: var(--nk-primary-light); font-size: 1.6rem; transform: rotate(-15deg); }
+  .hero-search input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--nk-text); background: transparent; font-size: 1rem; }
+  .hero-search button { min-height: 46px; padding: 0 20px; border: 0; border-radius: 13px; color: white; background: var(--nk-primary); font-weight: 750; cursor: pointer; }
+  .hero-search kbd { padding: 4px 7px; border: 1px solid var(--nk-border); border-radius: 7px; color: var(--nk-muted); font-size: .72rem; }
+  .hero-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .hero-visual { position: relative; min-height: 450px; display: grid; place-items: center; }
+  .glow { position: absolute; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(155,93,229,.3), transparent 66%); filter: blur(18px); }
+  .orbit { position: absolute; border: 1px dashed rgba(155,93,229,.35); border-radius: 50%; }
+  .orbit-one { width: 390px; height: 390px; transform: rotate(18deg); }
+  .orbit-two { width: 275px; height: 275px; border-color: rgba(34,211,238,.25); }
+  .visual-card { position: absolute; z-index: 2; border: 1px solid var(--nk-border); background: var(--nk-surface); box-shadow: var(--nk-shadow); backdrop-filter: blur(18px); }
+  .main-card { width: min(360px, 90%); display: flex; align-items: center; gap: 16px; padding: 24px; border-radius: 24px; transform: rotate(-3deg); }
+  .main-card b, .main-card small { display: block; }
+  .main-card small { margin-top: 6px; color: var(--nk-muted); }
+  .file-mark { display: grid; place-items: center; width: 58px; height: 64px; border-radius: 14px; color: white; background: linear-gradient(145deg, #ef476f, #b62346); font-weight: 850; font-size: .82rem; }
+  .float-card { display: flex; align-items: center; gap: 9px; padding: 13px 16px; border-radius: 16px; font-size: .88rem; }
+  .float-card span { color: var(--nk-accent); font-size: 1.2rem; }
+  .float-card.one { top: 52px; right: 12px; transform: rotate(4deg); }
+  .float-card.two { bottom: 54px; left: 14px; transform: rotate(-5deg); }
+  @media (max-width: 900px) { .hero { min-height: auto; padding-top: 58px; } .hero-inner { grid-template-columns: 1fr; } .hero-visual { display: none; } }
+  @media (max-width: 580px) { h1 { font-size: clamp(2.8rem, 13vw, 3.4rem); } .hero-search { grid-template-columns: auto 1fr auto; } .hero-search kbd { display: none; } .hero-search button { padding-inline: 14px; } }
+</style>
